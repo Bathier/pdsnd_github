@@ -26,7 +26,7 @@ def get_filters():
 
     # get user input for month (all, january, february, ... , june)
     months_and_all = ['january', 'february', 'march', 'april', 'may', 'june', 'all']
-    
+
     month = (input("Please enter the month or all for no month filter: ")).lower()
     while month not in months_and_all:
         month = (input("Please enter the month or all for no month filter: ")).lower()
@@ -34,11 +34,11 @@ def get_filters():
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     days_and_all = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all']
-    
+
     day = (input("Please enter the day or all for no day filter: ")).lower()
     while day not in days_and_all:
         day = (input("Please enter the day or all for no day filter: ")).lower()
-      
+
     print('-'*40)
     return city, month, day
 
@@ -86,8 +86,8 @@ def time_stats(df):
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
-    
-    
+
+
     # display the most common month
     # print(df['month'].isnull().sum().sum())
     common_month = df['month'].mode().at[0]
@@ -110,12 +110,12 @@ def station_stats(df):
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
-    
+
     # display most commonly used start station
     common_start_station = df['Start Station'].mode().at[0]
     print("This is the popular Start Station: ", common_start_station)
-    
-    
+
+
     # display most commonly used end station
     common_end_station = df['End Station'].mode().at[0]
     print("This is the popular End Station: ", common_end_station)
@@ -126,11 +126,11 @@ def station_stats(df):
     index = df['Start Station'].index
     data = [(df['Start Station'].at[i], df['End Station'].at[i]) for i in index]
     combo_station = pd.Series(data, index)
-    
+
     # Getting the popular start and end station and displaying the results
     common_combo_station = combo_station.mode().at[0]
-    print("The frequent combination of start station and end station trip:", common_combo_station[0], "and", common_combo_station[1])
-    
+    print("The frequent combination of start station and end station trip: {0} and {1}".format(common_combo_station[0], common_combo_station[1]))
+
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -149,7 +149,7 @@ def trip_duration_stats(df):
     # display mean travel time
     avg_time = total_time/df['Trip Duration'].dropna(axis = 0).size
     print("This is the average travel time:", round(avg_time/60,1), "minutes.")
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -159,7 +159,7 @@ def user_stats(df):
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
-    
+
     try:
         # Display counts of user types
         if df['User Type'].isnull().sum():
@@ -168,22 +168,22 @@ def user_stats(df):
         else:
             print("User Type information is not available")
 
-    except KeyError: 
+    except KeyError:
         print("User Type information is not available")
 
     try:
 
         # Checking if there is a NaN value
         if df['Gender'].isnull().sum():
-            gender = df['Gender'].value_counts() 
+            gender = df['Gender'].value_counts()
             print("This is the gender count:\n", gender.to_string())
         else:
             print("Gender information is not available")
 
 
-    except KeyError: 
-        print("Gender information is not available")   
-    
+    except KeyError:
+        print("Gender information is not available")
+
     try:
         if df['Birth Year'].isnull().sum():
             early_birth_year = df['Birth Year'].min()
@@ -198,8 +198,8 @@ def user_stats(df):
             print("This is the common birth year:", np.int64(common_birth_year))
         else:
             print("Birth Year information is not available")
-    except KeyError: 
-        print("Birth Year information is not available")  
+    except KeyError:
+        print("Birth Year information is not available")
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -211,7 +211,7 @@ def display_raw_data(df): # Viewing raw data, data that was used for computing s
     pd.set_option('display.max_columns',200)
     num_rows = df.shape[0] # Getting the number of rows
 
-    while True:            
+    while True:
         if user_input == 'no':
             break
         elif user_input == 'yes':
@@ -221,10 +221,10 @@ def display_raw_data(df): # Viewing raw data, data that was used for computing s
                 i += 5
             else:
                 print("There are no more data to display, ending...\n") # We are at the end of the data set, ending it here
-                break 
+                break
         else:
-            user_input = input("\nYour input is invalid. Please enter only 'yes' or 'no'\n").lower()    
-    
+            user_input = input("\nYour input is invalid. Please enter only 'yes' or 'no'\n").lower()
+
 def main():
     while True:
         city, month, day = get_filters()
