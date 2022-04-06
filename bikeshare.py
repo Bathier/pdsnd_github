@@ -176,7 +176,7 @@ def user_stats(df):
         # Checking if there is a NaN value
         if df['Gender'].isnull().sum():
             gender = df['Gender'].value_counts()
-            print("This is the gender count:\n", gender.to_string())
+            print("This is the gender count: {}".format(gender))
         else:
             print("Gender information is not available")
 
